@@ -1,31 +1,23 @@
 class Game {
-    public static void showAllActions() {
-        String[] actions = Action.getAllActions();
-
-        Console.printActionList(actions);
-    }
-    public static String getNextAction() {
-        String action = Console.getNextAction();
-
-        return action;
-    }
     public static void main(String[] args) {
         System.out.println("Hello World");
-        Game.showAllActions();
+
+        Status status = new Status();
+        status.setNextAction("show actions");
 
         boolean exit = false;
 
         while(!exit) {
-            String action = Game.getNextAction();
+            status = Controller.getNextAction(status);
 
-            if(action.equals("learn")) {
-                // learn
+            if(status.getNextAction().equals("show actions")) {
+                status = Controller.showAllActions(status);
             }
-            if(action.equals("show actions")) {
-                Game.showAllActions();
-            }
-            if(action.equals("exit")) {
+            else if(status.getNextAction().equals("exit")) {
                 exit = true;
+            }
+            else {
+                status = Controller.validateAction(status);
             }
         }
     }

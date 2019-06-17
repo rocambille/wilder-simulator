@@ -3,11 +3,15 @@ import java.util.Scanner;
 class Console {
     public final static Scanner scanner = new Scanner(System.in);
 
-    public static void printActionList(String[] actions) {
+    public static void printActionList(Action[] actions) {
         System.out.println("What you can do:");
 
-        for(String action : actions) {
-            System.out.println("* "+action);
+        int i = 1;
+        for(Action action : actions) {
+            if(!action.isLocked()) {
+                System.out.println(i + " " + action.getName());
+            }
+            i++;
         }
     }
     public static String getNextAction() {
